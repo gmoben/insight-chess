@@ -1,0 +1,19 @@
+{
+  "name": "insight-chess",
+  "version": "1.0.0",
+  "description": "InsightPool application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gmoben/insight-chess.git"
+  },
+  "author": "Ben Warren <ben@warr.io> (http://www.warr.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gmoben/insight-chess/issues"
+  },
+  "homepage": "https://github.com/gmoben/insight-chess"
+}
