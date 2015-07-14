@@ -7,10 +7,11 @@ import Timer from 'components/Timer';
 export default class Game extends EventEmitter {
   /**
    * Construct a game using the given number of seconds
-   * for each player.
+   * for each player. Pass in DOM ids for convienence.
+   *
    * @param  {number} seconds Total seconds per player.
-   * @param  {string} id1 First timer id
-   * @param  {string} id2 Second timer id
+   * @param  {string} id1 First timer DOM id
+   * @param  {string} id2 Second timer DOM id
    */
   constructor(seconds, id1, id2) {
     super();
@@ -22,6 +23,7 @@ export default class Game extends EventEmitter {
 
   /**
    * Start the game by starting the specified timer.
+   * @param {string} timerId DOM id of the timer to start first.
    */
   start(timerId) {
     this._activeTimer = this.timers[timerId];
@@ -42,6 +44,7 @@ export default class Game extends EventEmitter {
 
   /**
    * Stop the active timer and start the given timer by id.
+   * @param {string} timerId DOM id of the timer to activate.
    * @return [Timer] The active timer instance.
    */
   switchPlayer(timerId) {

@@ -1,20 +1,31 @@
 import {EventEmitter} from 'events';
 
 /**
- * Timer using process.hrtime().
+ * Timer using performance.now().
  */
 export default class Timer extends EventEmitter {
+  /**
+   * Construct a timer with the total length specified in seconds
+   * @param  {number} seconds Starting length in seconds.
+   * @return {Timer}
+   */
   constructor(seconds) {
     super();
     this.seconds = seconds;
     this.reset();
   }
 
+  /**
+   * Start counting down from the time remaining.
+   */
   start() {
     this._startTime = performance.now();
     this.started = true;
+
     this.emit('start', this.getRemainingFormat());
 
+    // Check every millisecond and emit a `tick` event
+    // if client display should be updated.
     let lastTick = this.seconds;
     this.interval = setInterval(() => {
       let remainingSecs = this.getRemainingSecs();
@@ -33,13 +44,15 @@ export default class Timer extends EventEmitter {
 
   /**
    * Emit remaining time as HH:MM, or the given payload.
-   * @param  {[type]} payload [description]
-   * @return {[type]}         [description]
+   * @param  {string} [payload] String to emit with tick.
    */
   tick(payload) {
     this.emit('tick', payload || this.getRemainingFormat());
   }
 
+  /**
+   * Stop the timer.
+   */
   stop () {
     if (this.started) {
       this._remaining = this.getRemaining();
@@ -50,6 +63,9 @@ export default class Timer extends EventEmitter {
     }
   }
 
+  /**
+   * Reset to the starting length and stop ticking.
+   */
   reset () {
     this.total = this.seconds * 1000.0;
     this._remaining = this.total;
@@ -57,20 +73,33 @@ export default class Timer extends EventEmitter {
     this.tick();
   }
 
+  /**
+   * Get elapsed time in floating point milliseconds.
+   */
   getElapsed() {
     if (!this._startTime) return 0;
     return performance.now() - this._startTime;
   }
 
+  /**
+   * Get remaining time in floating point milliseconds.
+   */
   getRemaining() {
     if (!this.started) return this._remaining;
     return this._remaining - this.getElapsed();
   }
 
+  /**
+   * Get remaining seconds, as would be displayed on a countdown timer.
+   */
   getRemainingSecs() {
     return Math.floor(this.getRemaining() / 1000) + 1;
   }
 
+  /**
+   * Get remaining time as a string formatted `HH:MM`
+   * @param {string} [arg]  Optionally specify the string to be formatted.
+   */
   getRemainingFormat(arg) {
     let rem = arg || this.getRemainingSecs();
     let min = (Math.floor(rem / 60)).toString();
@@ -79,6 +108,9 @@ export default class Timer extends EventEmitter {
     return min + ':' + sec;
   }
 
+  /**
+   * Clear any intervals set while ticking.
+   */
   _clearInterval() {
     if (this.interval) {
       clearInterval(this.interval);
