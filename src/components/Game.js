@@ -1,4 +1,4 @@
-import {EventEmitter} from 'events';
+import EventEmitter from 'components/EventEmitter';
 import Timer from 'components/Timer';
 
 /**
@@ -34,7 +34,6 @@ export default class Game extends EventEmitter {
     Object.keys(this.timers).map(_id => {
       let timer = this.timers[_id];
       timer.on('end', () => {
-        console.log(timer, _id);
         this.emit('end', timer, _id);
       });
     });
