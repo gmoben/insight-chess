@@ -10,7 +10,7 @@ export function byClass(cls, el) {
 
 /**
  * Convenience function for `getElementById`
- * @param {string} cls DOM class
+ * @param {string} id DOM id
  * @param {Element} [el] Optional element to call into
  */
 export function byId(id, el) {
@@ -21,7 +21,7 @@ export function byId(id, el) {
 /**
  * Convenience function for setting `innerHTML`
  * @param {Element} el      DOM element
- * @param {string} content innerHTML content
+ * @param {string}  content innerHTML content
  */
 export function setContent(el, content) {
   el.innerHTML = content;
@@ -29,7 +29,7 @@ export function setContent(el, content) {
 
 /**
  * Convenience function for `addEventListener`
- * @param  {Element}   el        DOM element
+ * @param  {Element}  el        DOM element
  * @param  {string}   eventName Event name to listen for
  * @param  {Function} cb        Event handler
  */

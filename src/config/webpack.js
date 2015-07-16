@@ -2,10 +2,6 @@ import path from 'path';
 
 const ROOT = path.join(__dirname, '../');
 
-console.log(path.join(ROOT, '../node_modules'));
-
-// const PARENT = path.join(ROOT, '..');
-
 export default {
   debug: true,
   devtool: 'source-map',
